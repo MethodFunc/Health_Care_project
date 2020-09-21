@@ -1,3 +1,12 @@
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 <link rel="stylesheet" href="stylesheets/style.css">
 
 
@@ -7,19 +16,19 @@
             <h3 class="masthead-brand">Health Care</h3>
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link" href="/">Home</a>
-                <a class="nav-link active" href="/squat">Squats</a>
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link active" href="/squat">Squat</a>
+                <a class="nav-link" href="/contact">Contact</a>
             </nav>
         </div>
     </header>
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Squart</h1>
+        <h1 class="cover-heading">Squat Training</h1>
         <br>
-        <table class="table table-light">
+        <table class="table table-active table-borderless">
             <thead>
             <tr>
-                <th><p class="lead"> <button class="btn btn-primary"type="button" onclick="init()">Start</button> </p> </th>
-                <th><p class="lead"> Count</p></th>
+                <th colspan="2"><p class="lead"> <button class="btn btn-primary"type="button" onclick="init()">Start</button> </p> </th>
+                <!--                <th><p class="lead"> ← Click to start </p></th>-->
             </tr>
             </thead>
             <tbody>
@@ -126,19 +135,15 @@
                         }
                     </script></td>
                 <td>
-<!--                    <div class="col-lg-3 stats">-->
-                        <h5>Squat Count</h5>
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        <div id='counter'>0</div>
-                    </div>
-                </td>
-            </tr>
-            </tbody></table>
-    </main>
+                    <!--                    <div class="col-lg-3 stats">-->
+                    <h5 style="color:white;">Squat Count</h5>
+                    <i class="fa fa-check" aria-hidden="true" style="color:white;"></i>
+                    <div id='counter' style="color:white;">0</div>
+</div>
+</td>
+</tr>
+</tbody></table>
+</main>
 
-    <footer class="mastfoot mt-auto">
-        <div class="inner">
-            <p>Copyright &copy; 2020 None-Major</p>
-        </div>
-    </footer>
+<% include ../part/footer.ejs%>
 </div>

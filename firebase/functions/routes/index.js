@@ -23,7 +23,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/squat', function (req, res, tnext) {
-  res.render('index_squat', {title: 'Health Care - squart'});
+  res.render('index_squat', {title: 'Health Care - squat'});
 });
+
+router.get('/contact', function (req, res) {
+
+	res.render('index_contact', {title: 'Health Care - contact'});
+
+})
 
 module.exports = router;
