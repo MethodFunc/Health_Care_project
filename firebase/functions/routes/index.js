@@ -1,35 +1,25 @@
 var express = require('express');
 var router = express.Router();
-const admin = require('firebase-admin'); 
-/////////////////////////////////////////////// 
-/// node.js 예제 /// 
-/////////////////////////////////////////////// 
-
-/* GET 클라이언트 접속 */ 
-router.get('/get', (req, res, next) => {
-	console.log("get send!"); res.send("get send!"); 
-	}); 
-	
-/* POST 클라이언트 접속 */
-router.post('/post', () => {
-	console.log("post send!"); 
-	res.send("post send!"); 
-});
+var fs = require('fs');
+var url = require('url');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Health Care - Main'});
+	var pathname = url.parse(req.url).pathname;
+	res.render('index', { title: 'Health Care - Main', pathnames: pathname});
 });
 
 router.get('/squat', function (req, res, tnext) {
-  res.render('index_squat', {title: 'Health Care - squat'});
+	var pathname = url.parse(req.url).pathname;
+	res.render('index', {title: 'Health Care - squart', name:'squat', pathnames: pathname});
 });
 
 router.get('/contact', function (req, res) {
-
-	res.render('index_contact', {title: 'Health Care - contact'});
+	var pathname = url.parse(req.url).pathname;
+	res.render('index', {title: 'Health Care - contact', pathnames: pathname});
 
 })
+
 
 module.exports = router;
