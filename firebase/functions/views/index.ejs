@@ -37,13 +37,13 @@
  </header>
 
  <% if(pathnames=='/'){%>
-  <% include body/main.ejs %>
+  <%- include("body/main") %>
 
  <%} else if(pathnames=='/squat') {%>
-  <% include body/squat.ejs%>
+    <%- include("body/squat") %>
 
  <%} else if(pathnames=='/contact') {%>
-  <% include body/contact.ejs%>
+    <%- include("body/contact") %>
  <%}%>
 
 
