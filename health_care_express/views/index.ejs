@@ -36,15 +36,15 @@
      </nav>
  </header>
 
- <% if(pathnames=='/'){%>
- <% include body/main.ejs %>
+    <% if(pathnames=='/'){%>
+        <%- include("body/main") %>
 
- <%} else if(pathnames=='/squat') {%>
- <% include body/squat.ejs%>
+    <%} else if(pathnames=='/squat') {%>
+        <%- include("body/squat") %>
 
- <%} else if(pathnames=='/contact') {%>
- <% include body/contact.ejs%>
- <%}%>
+    <%} else if(pathnames=='/contact') {%>
+        <%- include("body/contact") %>
+    <%}%>
 
 
 </div>
