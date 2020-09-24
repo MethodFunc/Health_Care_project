@@ -1,25 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
-var url = require('url');
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var pathname = url.parse(req.url).pathname;
-	res.render('index', { title: 'Health Care - Main', pathnames: pathname});
+  res.render('index', { title: 'Health Care - Main', content:'include main.ejs'});
 });
 
 router.get('/squat', function (req, res, tnext) {
-	var pathname = url.parse(req.url).pathname;
-	res.render('index', {title: 'Health Care - squart', name:'squat', pathnames: pathname});
+  res.render('index_squat', {title: 'Health Care - squart', name:'squat'});
 });
 
 router.get('/contact', function (req, res) {
-	var pathname = url.parse(req.url).pathname;
-	res.render('index', {title: 'Health Care - contact', pathnames: pathname});
 
-})
+  res.render('index_contact', {title: 'Health Care - contact'});
 
+});
+
+router.get('/graph', function (req, res) {
+
+  res.render('index_graph', {title: 'Health Care - contact'});
+
+});
 
 module.exports = router;

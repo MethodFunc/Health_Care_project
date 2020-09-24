@@ -2,53 +2,82 @@
 <html lang="ko">
 <head>
  <title><%= title%></title>
- <% include part/header.ejs %>
+ <%- include('part/header') %>
+
+  <style>
+    body{
+      background-image: url("images/background.jpg");
+      filter: grayscale(80%);
+      background-position: top;
+      background-size: cover;
+    }
+  </style>
 
 </head>
 <body class="text-center">
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-
- <header class="masthead mb-auto">
-
-  <div class="inner">
-
-   <h3 class="masthead-brand">Health Care</h3>
-
-   <nav class="nav nav-masthead justify-content-center">
-
-    <% if(pathnames=='/'){%>
-     <a class="nav-link active" href="/">Home</a>
-     <a class="nav-link" href="/squat">Squat</a>
-     <a class="nav-link" href="/contact">Contact</a>
-
-    <%} else if(pathnames=='/squat') {%>
-     <a class="nav-link " href="/">Home</a>
-     <a class="nav-link active" href="/squat">Squat</a>
-     <a class="nav-link" href="/contact">Contact</a>
-
-    <%} else if(pathnames=='/contact') {%>
-    <nav class="nav nav-masthead justify-content-center">
-     <a class="nav-link " href="/">Home</a>
-     <a class="nav-link" href="/squat">Squat</a>
-     <a class="nav-link active" href="/contact">Contact</a>
-     <%}%>
-
-    </nav>
- </header>
-
- <% if(pathnames=='/'){%>
-  <%- include("body/main") %>
-
- <%} else if(pathnames=='/squat') {%>
-    <%- include("body/squat") %>
-
- <%} else if(pathnames=='/contact') {%>
-    <%- include("body/contact") %>
- <%}%>
+<%- include('body/main') %>
 
 
-</div>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+
+<script>
+ // Your web app's Firebase configuration
+ // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+ apiKey: "AIzaSyBBOiZKKIZsgNjQLDZ9ZWJoWscMs7UNv0M",
+ authDomain: "health-care-a6fbe.firebaseapp.com",
+ databaseURL: "https://health-care-a6fbe.firebaseio.com",
+ projectId: "health-care-a6fbe",
+ storageBucket: "health-care-a6fbe.appspot.com",
+ messagingSenderId: "985728209665",
+ appId: "1:985728209665:web:492ccbc023e494ce994100",
+ measurementId: "G-N6WMPWJK1Q"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
+var provider = new firebase.auth.GoogleAuthProvider();
+
+// 인증하기
+firebase.auth().signInWithPopup(provider).then(function(result) {
+ // This gives you a Google Access Token. You can use it to access the Google API.
+ var token = result.credential.accessToken;
+ // The signed-in user info.
+ var user = result.user;
+
+ // console.log(user)		// 인증 후 어떤 데이터를 받아오는지 확인해보기 위함.
+// ...
+}).catch(function(error) {
+ // Handle Errors here.
+ var errorCode = error.code;
+ var errorMessage = error.message;
+ // The email of the user's account used.
+ var email = error.email;
+ // The firebase.auth.AuthCredential type that was used.
+ var credential = error.credential;
+ // ...
+});
+
+ firebase.analytics();
+
+ var database = firebase.database();
+
+ var dbTestRef = database.ref('test/')
+ dbTestRef.on('child_added', function(data){
+  console.log(data.val())
+ })
+ dbTestRef2 = database.ref('test/').update({
+  squat: 20
+ })
+</script>
 </body>
 
 

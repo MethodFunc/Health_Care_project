@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="stylesheets/style.css">
+
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">Health Care</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/squat">Squat</a>
+                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link active" href="/graph">Graph</a>
+            </nav>
+        </div>
+    </header>
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">공사중입니다.</h1>
+        <div class="container"> <canvas id="myChart"></canvas> </div>
+    </main>
+    <svg width="960" height="500"></svg>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBBOiZKKIZsgNjQLDZ9ZWJoWscMs7UNv0M",
+            authDomain: "health-care-a6fbe.firebaseapp.com",
+            databaseURL: "https://health-care-a6fbe.firebaseio.com",
+            projectId: "health-care-a6fbe",
+            storageBucket: "health-care-a6fbe.appspot.com",
+            messagingSenderId: "985728209665",
+            appId: "1:985728209665:web:492ccbc023e494ce994100",
+            measurementId: "G-N6WMPWJK1Q"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+
+
+        var database = firebase.database();
+        var dbTestRef = database.ref('test/');
+
+        // var childKey;
+        // var childData;
+        //
+        // dbTestRef.once('value', function (snapshot) {
+        //     snapshot.forEach(function (childSnapshot) {
+        //         childKey = childSnapshot.key;
+        //         childData = childSnapshot.val();
+        //     });
+        // });
+
+        dbTestRef.on('child_added', function(data) {
+           var aa = data.val();
+           var data = [aa, 5, 2, 20, 30, aa ];
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'My First dataset',
+                        backgroundColor: 'transparent',
+                        borderColor: 'red',
+                        data: data
+                    }]
+                },
+                option: {}
+            });
+
+        });
+
+
+
+
+    </script>
+    <%- include('../part/footer')%>
+</div>
