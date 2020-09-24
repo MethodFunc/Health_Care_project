@@ -1,0 +1,47 @@
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">공사중입니다.</h1>
+        <div class="container"> <canvas id="myChart"></canvas> </div>
+    </main>
+    <svg width="960" height="500"></svg>
+    <script>
+        // https://console.firebase.google.com/project/[your_project_name]/settings/general
+        // var firebaseConfig = {
+
+        // };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+
+
+        var database = firebase.database();
+        var dbTestRef = database.ref('test/');
+
+
+
+        dbTestRef.on('child_added', function(data) {
+           var aa = data.val();
+           var data = [aa, 5, 2, 20, 30, aa ];
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'My First dataset',
+                        backgroundColor: 'transparent',
+                        borderColor: 'red',
+                        data: data
+                    }]
+                },
+                option: {}
+            });
+
+        });
+
+
+
+
+    </script>
+    <%- include('../part/footer')%>
+</div>
