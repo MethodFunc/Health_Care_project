@@ -21,5 +21,11 @@ router.get('/contact', function (req, res) {
 
 })
 
+router.get('/graph', function (req, res) {
+	var pathname = url.parse(req.url).pathname;
+	res.render('index_graph', {title: 'Health Care - contact', pathnames: pathname});
+
+});
+
 
 module.exports = router;
