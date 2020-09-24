@@ -12,18 +12,18 @@ router.get('/', function(req, res, next) {
 
 router.get('/squat', function (req, res, tnext) {
 	var pathname = url.parse(req.url).pathname;
-	res.render('index', {title: 'Health Care - squart', name:'squat', pathnames: pathname});
+	res.render('index', {title: 'Health Care - Squat', name:'squat', pathnames: pathname});
 });
 
 router.get('/contact', function (req, res) {
 	var pathname = url.parse(req.url).pathname;
-	res.render('index', {title: 'Health Care - contact', pathnames: pathname});
+	res.render('index', {title: 'Health Care - Contact', pathnames: pathname});
 
 })
 
 router.get('/graph', function (req, res) {
 	var pathname = url.parse(req.url).pathname;
-	res.render('index', {title: 'Health Care - contact', pathnames: pathname});
+	res.render('index', {title: 'Health Care - Graph', pathnames: pathname});
 
 });
 
