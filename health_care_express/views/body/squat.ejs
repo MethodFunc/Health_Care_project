@@ -46,7 +46,9 @@
                             const canvas = document.getElementById("canvas");
                             canvas.width = size; canvas.height = size;
                             ctx = canvas.getContext("2d");
+
                             labelContainer = document.getElementById("label-container");
+
                             for (let i = 0; i < maxPredictions; i++) { // and class labels
                                 labelContainer.appendChild(document.createElement("div"));
                             }
@@ -59,7 +61,7 @@
                         }
                         var progress = 327
                         var status = "stand"
-                        count = 0
+                        var count = 0
                         async function predict() {
 
                             // Prediction #1: run input through posenet
@@ -68,8 +70,9 @@
                             // Prediction 2: run input through teachable machine classification model
                             const prediction = await model.predict(posenetOutput);
                             if (prediction[0].probability.toFixed(2) > 0.90) {
-                                if (status == "squat") {
+                                if (status == "great" || status == "good") {
                                     count++
+
                                     var audio = new Audio(SOUND + count % 10 + '.mp3');
                                     audio.play();
                                     progress = progress-32.7
@@ -82,9 +85,11 @@
                                 }
                                 status = "stand"
                             } else if (prediction[1].probability.toFixed(2) == 1.00) {
-                                status = "squat"
+                                status = "great"
                             } else if (prediction[2].probability.toFixed(2) == 1.00) {
-                                if (status == "squat" || status == "stand") {
+                                status = "good"
+                            } else if (prediction[3].probability.toFixed(2) == 1.00 || prediction[4].probability.toFixed(2) == 1.00) {
+                                if (status == "great" || status == "good" || status == "stand") {
                                     var audio = new Audio(SOUND + 'bent.mp3');
                                     audio.play();
                                 }
@@ -117,7 +122,9 @@
                                     tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
                                 }
                             }
+
                         }
+
 
                     </script>
 
