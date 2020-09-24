@@ -25,6 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14d39f54-7d54-42b7-ad18-dd9d037cf02e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace_web.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firebase/functions/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/firebase/functions/routes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firebase/functions/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/firebase/functions/views/index.ejs" afterDir="false" />
     </list>
@@ -83,7 +89,7 @@
       <updated>1600685449177</updated>
       <workItem from="1600685450236" duration="4788000" />
       <workItem from="1600744216720" duration="1558000" />
-      <workItem from="1600940164729" duration="105000" />
+      <workItem from="1600940164729" duration="121000" />
     </task>
     <task id="LOCAL-00001" summary="progress_bar test">
       <created>1600754506397</created>
