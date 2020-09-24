@@ -6,7 +6,7 @@ var url = require('url');
 /* GET home page. */
 router.get('/', function(req, res) {
   var pathname = url.parse(req.url).pathname;
-  res.render('index', { title: 'Health Care - Main', pathnames: pathname, count:count});
+  res.render('index', { title: 'Health Care - Main', pathnames: pathname});
 });
 
 router.get('/squat', function (req, res) {
