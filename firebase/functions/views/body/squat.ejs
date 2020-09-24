@@ -68,7 +68,7 @@
                         const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
                         // Prediction 2: run input through teachable machine classification model
                         const prediction = await model.predict(posenetOutput);
-                        if (prediction[0].probability.toFixed(2) > 0.90) {
+                        if (prediction[0].probability.toFixed(2) >= 0.98) {
                             if (status == "great") {
                                 count++
 
@@ -80,7 +80,10 @@
                                 }
                                 $('.progress').css('stroke-dashoffset', progress);
                                 $('#counter').html(count);
-                            } else if (status == "good"){
+                            }
+                            status = "stand"
+                        } else if (prediction[0].probability.toFixed(2) >= 0.9) {
+                            if (status == "great") {
                                 count++
 
                                 var audio = new Audio(SOUND + 'good.mp3');
@@ -95,23 +98,23 @@
                             status = "stand"
                         } else if (prediction[1].probability.toFixed(2) == 1.00) {
                             status = "great"
-                        } else if (prediction[2].probability.toFixed(2) == 1.00) {
-                            status = "good"
-                        } else if (prediction[3].probability.toFixed(2) >= 0.85 || prediction[4].probability.toFixed(2) >= 0.85) {
-                            if (status == "great" || status == "good" || status == "stand") {
+                        } else if (prediction[2].probability.toFixed(2) >= 0.85 || prediction[3].probability.toFixed(2) >= 0.85 || prediction[4].probability.toFixed(2) >= 0.85) {
+                            if (status == "great" || status == "stand") {
                                 var audio = new Audio(SOUND + 'bent.mp3');
                                 audio.play();
                                 bent_count++;
                             }
+                            $('.progress').css('stroke-dashoffset', progress);
+                            $('#counter2').html(bent_count);
                             status = "bent"
                         }
 
-                        if(count == 10){
-                            var audio = new Audio(SOUND + 'restart.mp3');
-                            setTimeout(init, 1000);
-                            count = 0;
-                            // location.href="http://naver.com/";
-                        }
+                        // if(count == 10){
+                        //     var audio = new Audio(SOUND + 'restart.mp3');
+                        //     setTimeout(init, 10000);
+                        //     count = 0;
+                        //     // location.href="http://naver.com/";
+                        // }
 
                         for (let i = 0; i < maxPredictions; i++) {
                             const classPrediction =
@@ -141,6 +144,10 @@
                 <h5 style="color:white;">Squat Count</h5>
                 <i class="fa fa-check" aria-hidden="true" style="color:white;"></i>
                 <div id='counter' style="color:white;">0</div>
+<br>
+                <h5 style="color:white;">bent Count</h5>
+                <i class="fa fa-check" aria-hidden="true" style="color:white;"></i>
+                <div id='counter2' style="color:white;">0</div>
             </td>
         </tr>
         </tbody></table>
