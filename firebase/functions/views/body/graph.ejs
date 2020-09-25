@@ -1,37 +1,42 @@
-    <main role="main" class="inner cover">
-        <h1 class="cover-heading">공사중입니다.</h1>
-        <div class="container"> <canvas id="myChart"></canvas> </div>
-    </main>
-    <svg width="960" height="500"></svg>
+<main role="main" class="inner cover">
+    <h1>Squat DashBoard</h1>
+    <div class="container"> <canvas id="myChart"></canvas> </div>
+
+<!--    <svg width="960" height="500"></svg>-->
     <script>
         // https://console.firebase.google.com/project/[your_project_name]/settings/general
-        // var firebaseConfig = {
-
-        // };
+        var firebaseConfig = {
+            apiKey: "AIzaSyB72klvRp9TjHhczFMAMM8FGOhaTLhKHFc",
+            authDomain: "train-5772b.firebaseapp.com",
+            databaseURL: "https://train-5772b.firebaseio.com",
+            projectId: "train-5772b",
+            storageBucket: "train-5772b.appspot.com",
+            messagingSenderId: "874170495915",
+            appId: "1:874170495915:web:92c0dbec429da4161658ee",
+            measurementId: "G-0T8VVPG5BV"
+        };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
-
-
         var database = firebase.database();
-        var dbTestRef = database.ref('test/');
+        var dbTestRef = database.ref('hca/');
 
-
-
+        var labels = new Array();
+        var datas = new Array();
         dbTestRef.on('child_added', function(data) {
-           var aa = data.val();
-           var data = [aa, 5, 2, 20, 30, aa ];
+            labels.push(data.key);
+            datas.push(data.val());
 
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    labels: labels,
                     datasets: [{
-                        label: 'My First dataset',
+                        label: 'Squat Count',
                         backgroundColor: 'transparent',
                         borderColor: 'red',
-                        data: data
+                        data: datas
                     }]
                 },
                 option: {}
@@ -39,9 +44,8 @@
 
         });
 
-
-
-
     </script>
-    <%- include('../part/footer')%>
+</main>
+<%- include('../part/footer')%>
 </div>
+
