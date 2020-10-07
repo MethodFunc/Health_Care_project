@@ -1,67 +1,157 @@
 <!doctype html>
 <html lang="ko">
 <head>
- <title><%= title%></title>
- <% include part/header.ejs %>
+    <title><%= title%></title>
+    <%- include("part/header") %>
 
 </head>
 <body class="text-center">
-
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
- <header class="masthead mb-auto">
+    <header class="masthead mb-auto">
 
-  <div class="inner">
+        <div class="inner">
 
-   <h3 class="masthead-brand">Health Care</h3>
+            <h3 class="masthead-brand">Health Care</h3>
 
-   <nav class="nav nav-masthead justify-content-center">
+            <nav class="nav nav-masthead justify-content-center">
+
+                <% if(pathnames=='/'){%>
+                    <a class="nav-link active" href="/">Home</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Upper body</button>
+                        <div class="dropdown-content">
+                            <a href="/squat">Squat</a>
+                            <a href="/shoulderp">Shoulder press</a>
+                            <!--                   <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">Lower body</button>
+                        <div class="dropdown-content">
+                            <a href="/lunge">Lunge</a>
+                            <a href="/legraise">Leg raise</a>
+                            <!--                   <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+                    <a class="nav-link" href="/graph">Graph</a>
+                    <a class="nav-link" href="/contact">Contact</a>
+
+                <%} else if(pathnames=='/squat' || pathnames=='/shoulderp') {%>
+                    <a class="nav-link" href="/">Home</a>
+                    <div class="dropdown">
+                        <button class="dropbtn active">Upper body</button>
+                        <div class="dropdown-content">
+                            <a href="/squat">Squat</a>
+                            <a href="/shoulderp">Shoulder press</a>
+                            <!--                    <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">Lower body</button>
+                        <div class="dropdown-content">
+                            <a href="/lunge">Lunge</a>
+                            <a href="/legraise">Leg raise</a>
+                            <!--                    <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+                        <a class="nav-link" href="/graph">Graph</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+
+                <%} else if(pathnames=='/lunge' || pathnames=='/legraise') {%>
+                    <a class="nav-link" href="/">Home</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Upper body</button>
+                        <div class="dropdown-content">
+                            <a href="/squat">Squat</a>
+                            <a href="/shoulderp">Shoulder press</a>
+                            <!--                    <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn active">Lower body</button>
+                        <div class="dropdown-content">
+                            <a href="/lunge">Lunge</a>
+                            <a href="/legraise">Leg raise</a>
+                            <!--                    <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+                        <a class="nav-link" href="/graph">Graph</a>
+
+                        <a class="nav-link" href="/contact">Contact</a>
+
+                    <%} else if(pathnames=='/graph') {%>
+                        <a class="nav-link " href="/">Home</a>
+                        <div class="dropdown">
+                            <button class="dropbtn">Upper body</button>
+                            <div class="dropdown-content">
+                                <a href="/squat">Squat</a>
+                                <a href="/shoulderp">Shoulder press</a>
+                                <!--                    <a href="#">Link 3</a>-->
+                            </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="dropbtn">Lower body</button>
+                            <div class="dropdown-content">
+                                <a href="/lunge">Lunge</a>
+                                <a href="/legraise">Leg raise</a>
+                                <!--                    <a href="#">Link 3</a>-->
+                            </div>
+                        </div>
+                        <a class="nav-link active" href="/graph">Graph</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+
+                <%} else if(pathnames=='/contact') {%>
+                    <a class="nav-link " href="/">Home</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Upper body</button>
+                        <div class="dropdown-content">
+                            <a href="/squat">Squat</a>
+                            <a href="/shoulderp">Shoulder press</a>
+                            <!--                    <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">Lower body</button>
+                        <div class="dropdown-content">
+                            <a href="/lunge">Lunge</a>
+                            <a href="/legraise">Leg raise</a>
+                            <!--                    <a href="#">Link 3</a>-->
+                        </div>
+                    </div>
+                        <a class="nav-link" href="/graph">Graph</a>
+                        <a class="nav-link active" href="/contact">Contact</a>
+                <%}%>
+
+            </nav>
+    </header>
 
     <% if(pathnames=='/'){%>
-     <a class="nav-link active" href="/">Home</a>
-     <a class="nav-link" href="/squat">Squat</a>
-     <a class="nav-link" href="/graph">Graph</a>
-     <a class="nav-link" href="/contact">Contact</a>
-
+        <%- include("body/main") %>
+        <!--상체운동-->
     <%} else if(pathnames=='/squat') {%>
-     <a class="nav-link " href="/">Home</a>
-     <a class="nav-link active" href="/squat">Squat</a>
-     <a class="nav-link" href="/graph">Graph</a>
-     <a class="nav-link" href="/contact">Contact</a>
+        <%- include("body/squat") %>
 
+    <%} else if(pathnames=='/shoulderp') {%>
+        <%- include("body/shoulderp") %>
+        <!--하체운동-->
+    <%} else if(pathnames=='/lunge') {%>
+        <%- include("body/lunge") %>
 
-    <%} else if(pathnames=='/contact') {%>
-    <nav class="nav nav-masthead justify-content-center">
-     <a class="nav-link " href="/">Home</a>
-     <a class="nav-link" href="/squat">Squat</a>
-     <a class="nav-link" href="/graph">Graph</a>
-     <a class="nav-link active" href="/contact">Contact</a>
+    <%} else if(pathnames=='/legraise') {%>
+        <%- include("body/legraise") %>
 
     <%} else if(pathnames=='/graph') {%>
-    <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/squat">Squat</a>
-        <a class="nav-link active" href="/graph">Graph</a>
-        <a class="nav-link" href="/contact">Contact</a>
+        <%- include("body/graph") %>
 
-        <%}%>
-
-
-    </nav>
- </header>
-
- <% if(pathnames=='/'){%>
-  <%- include("body/main") %>
-
- <%} else if(pathnames=='/squat') {%>
-    <%- include("body/squat") %>
-
- <%} else if(pathnames=='/contact') {%>
-    <%- include("body/contact") %>
-
-<%} else if(pathnames=='/graph') {%>
-    <%- include("body/graph") %>
- <%}%>
+    <%} else if(pathnames=='/contact') {%>
+        <%- include("body/contact") %>
+    <%}%>
 
 
 </div>

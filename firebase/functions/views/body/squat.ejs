@@ -20,7 +20,7 @@
                     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
                     // the link to your model provided by Teachable Machine export panel
-                    const URL = 'my_model/'
+                    const URL = 'my_model/squat'
                     const SOUND = 'sound/'
                     let model, webcam, ctx, labelContainer, maxPredictions;
 
@@ -36,7 +36,7 @@
 
                         // Convenience function to setup a webcam
                         const size = 300;
-                        const flip = true; // whether to flip the webcam
+                        const flip = false; // whether to flip the webcam
                         webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
                         await webcam.setup(); // request access to the webcam
                         await webcam.play();
@@ -68,8 +68,8 @@
                         const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
                         // Prediction 2: run input through teachable machine classification model
                         const prediction = await model.predict(posenetOutput);
-                        if (prediction[0].probability.toFixed(2) >= 0.98) {
-                            if (status == "great") {
+                        if (prediction[1].probability.toFixed(2) >= 1.0) {
+                            if (status == "squat") {
                                 count++
 
                                 var audio = new Audio(SOUND + 'great.mp3');
@@ -82,8 +82,8 @@
                                 $('#counter').html(count);
                             }
                             status = "stand"
-                        } else if (prediction[0].probability.toFixed(2) >= 0.9) {
-                            if (status == "great") {
+                        } else if (prediction[1].probability.toFixed(2) >= 0.96) {
+                            if (status == "squat") {
                                 count++
 
                                 var audio = new Audio(SOUND + 'good.mp3');
@@ -96,10 +96,10 @@
                                 $('#counter').html(count);
                             }
                             status = "stand"
-                        } else if (prediction[1].probability.toFixed(2) == 1.00) {
-                            status = "great"
-                        } else if (prediction[2].probability.toFixed(2) >= 0.85 || prediction[3].probability.toFixed(2) >= 0.85 || prediction[4].probability.toFixed(2) >= 0.85) {
-                            if (status == "great" || status == "stand") {
+                        } else if (prediction[2].probability.toFixed(2) == 1.00) {
+                            status = "squat"
+                        } else if (prediction[3].probability.toFixed(2) >= 0.85) {
+                            if (status == "squat" || status == "stand") {
                                 var audio = new Audio(SOUND + 'bent.mp3');
                                 audio.play();
                                 bent_count++;
@@ -138,7 +138,53 @@
                             }
                         }
                     }
-                </script></td>
+
+                    let today = new Date();
+
+                    let year = today.getFullYear(); // 년도
+                    let month = today.getMonth() + 1;  // 월
+                    let date = today.getDate();  // 날짜
+
+                    if(date<10) {
+                        date='0'+date
+                    }
+
+                    if(month<10) {
+                        month='0'+month
+                    }
+
+                    var day = year + month + date;
+
+                    var firebaseConfig = {
+                        apiKey: "AIzaSyB72klvRp9TjHhczFMAMM8FGOhaTLhKHFc",
+                        authDomain: "train-5772b.firebaseapp.com",
+                        databaseURL: "https://train-5772b.firebaseio.com",
+                        projectId: "train-5772b",
+                        storageBucket: "train-5772b.appspot.com",
+                        messagingSenderId: "874170495915",
+                        appId: "1:874170495915:web:92c0dbec429da4161658ee",
+                        measurementId: "G-0T8VVPG5BV"
+                    };
+                    // Initialize Firebase
+                    firebase.initializeApp(firebaseConfig);
+
+                    var new_data = {
+                        day : count,
+                    };
+
+                    var database = firebase.database();
+                    var dbTestRef = database.ref('hca/').push().key;
+
+                    var updates = {};
+                    updates['/hca/'] = new_data;
+
+                    firebase.database().ref().update(updates);
+
+
+
+                </script>
+
+            </td>
             <td>
                 <!--                    <div class="col-lg-3 stats">-->
                 <h5 style="color:white;">Squat Count</h5>
