@@ -4,7 +4,8 @@
     <table class="table table-active table-borderless">
         <thead>
         <tr>
-            <th colspan="2"><p class="lead"> <button class="btn btn-primary"type="button" onclick="setTimeout(init(), 10000) ">Start</button> </p> </th>
+            <th colspan="2"><p class="lead">
+                    <button class="btn btn-primary"type="button" onclick="setTimeout(init(), 10000) ">Start</button> </p> </th>
             <!--                <th><p class="lead"> ← Click to start </p></th>-->
         </tr>
         </thead>
@@ -20,7 +21,7 @@
                     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
                     // the link to your model provided by Teachable Machine export panel
-                    const URL = 'my_model/squat'
+                    const URL = 'my_model/squat/'
                     const SOUND = 'sound/'
                     let model, webcam, ctx, labelContainer, maxPredictions;
 
@@ -168,17 +169,22 @@
                     // Initialize Firebase
                     firebase.initializeApp(firebaseConfig);
 
-                    var new_data = {
-                        squat : count,
-                    };
+
 
                     var database = firebase.database();
-                    var dbTestRef = database.ref('hca/').push().key;
 
-                    var updates = {};
-                    updates['/hca/'] = new_data;
+                    function updateUserData(userId) {
 
-                    firebase.database().ref().update(updates);
+                        var new_data = {
+                            squat : count,
+                        };
+
+                        var dbTestRef = database.ref('hca/' + userId ).push().key;
+
+                        var updates = {};
+                        updates['/hca/' + userId] = new_data;
+                        firebase.database().ref().update(updates);
+                    }
 
 
 

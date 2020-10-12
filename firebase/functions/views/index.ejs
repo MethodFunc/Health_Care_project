@@ -19,87 +19,48 @@
                 <% if(pathnames=='/'){%>
                     <a class="nav-link active" href="/">Home</a>
                     <div class="dropdown">
-                        <button class="dropbtn">Upper body</button>
+                        <button class="dropbtn">Training</button>
                         <div class="dropdown-content">
+                            <a style="color: rgba(0 ,0, 0, 0.8)" class="disabled">Upper body</a>
                             <a href="/squat">Squat</a>
                             <a href="/shoulderp">Shoulder press</a>
-                            <!--                   <a href="#">Link 3</a>-->
+                            <a style="color: rgba(0, 0, 0, 0.8)" class="disabled">Lower body</a>
+                            <a href="/lunge">Lunge</a>
+                            <a href="/legraise">Leg raise</a>
                         </div>
                     </div>
 
-                    <div class="dropdown">
-                        <button class="dropbtn">Lower body</button>
-                        <div class="dropdown-content">
-                            <a href="/lunge">Lunge</a>
-                            <a href="/legraise">Leg raise</a>
-                            <!--                   <a href="#">Link 3</a>-->
-                        </div>
-                    </div>
                     <a class="nav-link" href="/graph">Graph</a>
                     <a class="nav-link" href="/contact">Contact</a>
 
-                <%} else if(pathnames=='/squat' || pathnames=='/shoulderp') {%>
+                <%} else if(pathnames=='/squat' || pathnames=='/shoulderp' || pathnames=='/lunge' || pathnames=='/legraise') {%>
                     <a class="nav-link" href="/">Home</a>
-                    <div class="dropdown">
-                        <button class="dropbtn active">Upper body</button>
-                        <div class="dropdown-content">
-                            <a href="/squat">Squat</a>
-                            <a href="/shoulderp">Shoulder press</a>
-                            <!--                    <a href="#">Link 3</a>-->
+                        <div class="dropdown">
+                            <button class="dropbtn active">Training</button>
+                            <div class="dropdown-content">
+                                <a style="color: rgba(0 ,0, 0, 0.8)" class="disabled">Upper body</a>
+                                <a href="/squat">Squat</a>
+                                <a href="/shoulderp">Shoulder press</a>
+                                <a style="color: rgba(0, 0, 0, 0.8)" class="disabled" >Lower body</a>
+                                <a href="/lunge">Lunge</a>
+                                <a href="/legraise">Leg raise</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="dropdown">
-                        <button class="dropbtn">Lower body</button>
-                        <div class="dropdown-content">
-                            <a href="/lunge">Lunge</a>
-                            <a href="/legraise">Leg raise</a>
-                            <!--                    <a href="#">Link 3</a>-->
-                        </div>
-                    </div>
                         <a class="nav-link" href="/graph">Graph</a>
-                        <a class="nav-link" href="/contact">Contact</a>
-
-                <%} else if(pathnames=='/lunge' || pathnames=='/legraise') {%>
-                    <a class="nav-link" href="/">Home</a>
-                    <div class="dropdown">
-                        <button class="dropbtn">Upper body</button>
-                        <div class="dropdown-content">
-                            <a href="/squat">Squat</a>
-                            <a href="/shoulderp">Shoulder press</a>
-                            <!--                    <a href="#">Link 3</a>-->
-                        </div>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="dropbtn active">Lower body</button>
-                        <div class="dropdown-content">
-                            <a href="/lunge">Lunge</a>
-                            <a href="/legraise">Leg raise</a>
-                            <!--                    <a href="#">Link 3</a>-->
-                        </div>
-                    </div>
-                        <a class="nav-link" href="/graph">Graph</a>
-
                         <a class="nav-link" href="/contact">Contact</a>
 
                     <%} else if(pathnames=='/graph') {%>
                         <a class="nav-link " href="/">Home</a>
                         <div class="dropdown">
-                            <button class="dropbtn">Upper body</button>
+                            <button class="dropbtn">Training</button>
                             <div class="dropdown-content">
+                                <a style="color: rgba(0 ,0, 0, 0.8)" class="disabled">Upper body</a>
                                 <a href="/squat">Squat</a>
                                 <a href="/shoulderp">Shoulder press</a>
-                                <!--                    <a href="#">Link 3</a>-->
-                            </div>
-                        </div>
-
-                        <div class="dropdown">
-                            <button class="dropbtn">Lower body</button>
-                            <div class="dropdown-content">
+                                <a style="color: rgba(0, 0, 0, 0.8)" class="disabled">Lower body</a>
                                 <a href="/lunge">Lunge</a>
                                 <a href="/legraise">Leg raise</a>
-                                <!--                    <a href="#">Link 3</a>-->
                             </div>
                         </div>
                         <a class="nav-link active" href="/graph">Graph</a>
@@ -107,23 +68,17 @@
 
                 <%} else if(pathnames=='/contact') {%>
                     <a class="nav-link " href="/">Home</a>
-                    <div class="dropdown">
-                        <button class="dropbtn">Upper body</button>
-                        <div class="dropdown-content">
-                            <a href="/squat">Squat</a>
-                            <a href="/shoulderp">Shoulder press</a>
-                            <!--                    <a href="#">Link 3</a>-->
+                        <div class="dropdown">
+                            <button class="dropbtn">Training</button>
+                            <div class="dropdown-content">
+                                <a style="color: rgba(0 ,0, 0, 0.8)" class="disabled">Upper body</a>
+                                <a href="/squat">Squat</a>
+                                <a href="/shoulderp">Shoulder press</a>
+                                <a style="color: rgba(0, 0, 0, 0.8)" class="disabled" >Lower body</a>
+                                <a href="/lunge">Lunge</a>
+                                <a href="/legraise">Leg raise</a>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="dropbtn">Lower body</button>
-                        <div class="dropdown-content">
-                            <a href="/lunge">Lunge</a>
-                            <a href="/legraise">Leg raise</a>
-                            <!--                    <a href="#">Link 3</a>-->
-                        </div>
-                    </div>
                         <a class="nav-link" href="/graph">Graph</a>
                         <a class="nav-link active" href="/contact">Contact</a>
                 <%}%>
