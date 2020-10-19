@@ -5,6 +5,20 @@
 <!--    <svg width="960" height="500"></svg>-->
     <script>
         // https://console.firebase.google.com/project/[your_project_name]/settings/general
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd='0'+dd
+        }
+        if(mm<10) {
+            mm='0'+mm
+        }
+        today = String(yyyy)+ String(mm)+ String(dd);
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         var firebaseConfig = {
             apiKey: "AIzaSyB72klvRp9TjHhczFMAMM8FGOhaTLhKHFc",
             authDomain: "train-5772b.firebaseapp.com",
@@ -15,80 +29,110 @@
             appId: "1:874170495915:web:92c0dbec429da4161658ee",
             measurementId: "G-0T8VVPG5BV"
         };
-        // Initialize Firebase
+        // // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
 
-        var database = firebase.database();
-        var dbTestRef = database.ref('hca/');
+        const db = firebase.firestore();
+        const dbref = db.collection('hca').doc(today);
+        //
+        // var labels = new Array();
+        // var datas = new Array();
 
-        var labels = new Array();
-        var datas = new Array();
-        dbTestRef.on('child_added', function(data) {
-            labels.push(data.key);
-            datas.push(data.val());
+        // let getDoc = dbref.get()
+        //     .then(snapshot => {
+        //         snapshot.forEach(doc => {
+        //             console.log(doc.id, '=>', doc.data(), '=>', doc.data());
+        //         });
+        //     })
+        //     .catch(err => {
+        //         console.log('Error getting documents', err);
+        //     });
+        console.log(dbref.id)
+        dbref.get().then(function(querySnapshot){
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
 
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: '# of Count',
-                        data: datas,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.3)',
-                            'rgba(54, 162, 235, 0.3)',
-                            'rgba(255, 206, 86, 0.3)',
-                            'rgba(75, 192, 192, 0.3)',
-                            'rgba(153, 102, 255, 0.3)',
-                            'rgba(255, 159, 64, 0.3)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        // borderWidth: 1,
-
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes:[{
-                            display: true,
-                            ticks:{
-                                fontColor: 'rgba(255, 255, 255, 0.8)'
-                            },
-                            gridLines: {
-                                color:'rgba(255, 255, 255, 0.5)'
-
-                            }
-                        }],
-                        yAxes: [{
-                            display: true,
-                            ticks: {
-                                beginAtZero: true,
-                                min:0,
-                                stepSize:2,
-                                fontColor: 'rgba(255, 255, 255, 0.8)'
-                            },
-                            gridLines:{
-                                color:'rgba(255, 255, 255, 0.5)'
-                            }
-                        }]
-                    },
-                    legend:{
-                        labels: {
-                            fontColor : 'white'
-                        }
-                    }
-                }
+                console.log(doc.data());
             });
-
         });
+
+        // var alldata = dbref.get().then(snapshot => {
+        //     snapshot.forEach(doc => {
+        //         console.log(doc.id, '=>', doc.data());
+        //     });
+        // })
+        //     .catch(err => {
+        //         console.log('Error getting documents', err);
+        //     });
+
+        // dbref.on('child_added', function(data) {
+        //     labels.push(data.key);
+        //     datas.push(data.val());
+        //
+        //     var ctx = document.getElementById('myChart').getContext('2d');
+        //     var chart = new Chart(ctx, {
+        //         type: 'bar',
+        //         data: {
+        //             labels: labels,
+        //             datasets: [{
+        //                 label: '# of Count',
+        //                 data: datas,
+        //                 backgroundColor: [
+        //                     'rgba(255, 99, 132, 0.3)',
+        //                     'rgba(54, 162, 235, 0.3)',
+        //                     'rgba(255, 206, 86, 0.3)',
+        //                     'rgba(75, 192, 192, 0.3)',
+        //                     'rgba(153, 102, 255, 0.3)',
+        //                     'rgba(255, 159, 64, 0.3)'
+        //                 ],
+        //                 borderColor: [
+        //                     'rgba(255,99,132,1)',
+        //                     'rgba(54, 162, 235, 1)',
+        //                     'rgba(255, 206, 86, 1)',
+        //                     'rgba(75, 192, 192, 1)',
+        //                     'rgba(153, 102, 255, 1)',
+        //                     'rgba(255, 159, 64, 1)'
+        //                 ],
+        //                 // borderWidth: 1,
+        //
+        //             }]
+        //         },
+        //         options: {
+        //             scales: {
+        //                 xAxes:[{
+        //                     display: true,
+        //                     ticks:{
+        //                         fontColor: 'rgba(255, 255, 255, 0.8)'
+        //                     },
+        //                     gridLines: {
+        //                         color:'rgba(255, 255, 255, 0.5)'
+        //
+        //                     }
+        //                 }],
+        //                 yAxes: [{
+        //                     display: true,
+        //                     ticks: {
+        //                         beginAtZero: true,
+        //                         min:0,
+        //                         stepSize:2,
+        //                         fontColor: 'rgba(255, 255, 255, 0.8)'
+        //                     },
+        //                     gridLines:{
+        //                         color:'rgba(255, 255, 255, 0.5)'
+        //                     }
+        //                 }]
+        //             },
+        //             legend:{
+        //                 labels: {
+        //                     fontColor : 'white'
+        //                 }
+        //             }
+        //         }
+        //     });
+
+        // });
 
     </script>
 </main>

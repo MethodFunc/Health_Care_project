@@ -1,4 +1,5 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -37,6 +38,32 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// admin.initializeApp(functions.config().firebase);
+//
+// let db = admin.firestore();
+// // 현재 날짜 가져오기 및 데이터베이스 초기화
+// var today = new Date();
+// var dd = today.getDate();
+// var mm = today.getMonth()+1; //January is 0!
+// var yyyy = today.getFullYear();
+// if(dd<10) {
+//     dd='0'+dd
+// }
+// if(mm<10) {
+//     mm='0'+mm
+// }
+// today = String(yyyy)+ String(mm)+ String(dd);
+//
+// let test = db.collection('hca').doc(today);
+//
+// let setFirst = test.set({
+//       sqaut : 0,
+//       shoulderP : 0,
+//       lunge : 0,
+//       legraise: 0
+// })
+
 
 const api1 = functions.https.onRequest(app)
 

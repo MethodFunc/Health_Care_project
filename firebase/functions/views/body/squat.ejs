@@ -5,8 +5,7 @@
         <thead>
         <tr>
             <th colspan="2"><p class="lead">
-                    <button class="btn btn-primary"type="button" onclick="setTimeout(init(), 10000) ">Start</button> </p> </th>
-            <!--                <th><p class="lead"> ← Click to start </p></th>-->
+                    <button class="btn btn-primary"type="button" onclick="setTimeout(init(), 10000)">Start</button> </p> </th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +23,38 @@
                     const URL = 'my_model/squat/'
                     const SOUND = 'sound/'
                     let model, webcam, ctx, labelContainer, maxPredictions;
+
+
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+                    var yyyy = today.getFullYear();
+                    if(dd<10) {
+                        dd='0'+dd
+                    }
+                    if(mm<10) {
+                        mm='0'+mm
+                    }
+                    today = String(yyyy)+ String(mm)+ String(dd);
+
+                    // Your web app's Firebase configuration
+                    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                    var firebaseConfig = {
+                        apiKey: "AIzaSyB72klvRp9TjHhczFMAMM8FGOhaTLhKHFc",
+                        authDomain: "train-5772b.firebaseapp.com",
+                        databaseURL: "https://train-5772b.firebaseio.com",
+                        projectId: "train-5772b",
+                        storageBucket: "train-5772b.appspot.com",
+                        messagingSenderId: "874170495915",
+                        appId: "1:874170495915:web:92c0dbec429da4161658ee",
+                        measurementId: "G-0T8VVPG5BV"
+                    };
+                    // // Initialize Firebase
+                    firebase.initializeApp(firebaseConfig);
+                    firebase.analytics();
+
+                    const db = firebase.firestore();
+                    const dbref = db.collection('hca').doc(today);
 
                     async function init() {
                         const modelURL = URL + 'model.json'
@@ -110,6 +141,11 @@
                             status = "bent"
                         }
 
+
+                        const res = dbref.update({
+                            squat: count
+                        });
+
                         // if(count == 10){
                         //     var audio = new Audio(SOUND + 'restart.mp3');
                         //     setTimeout(init, 10000);
@@ -125,6 +161,8 @@
 
                         // finally draw the poses
                         drawPose(pose);
+
+
                     }
 
 
@@ -140,52 +178,6 @@
                         }
                     }
 
-                    let today = new Date();
-
-                    let year = today.getFullYear(); // 년도
-                    let month = today.getMonth() + 1;  // 월
-                    let date = today.getDate();  // 날짜
-
-                    if(date<10) {
-                        date='0'+date
-                    }
-
-                    if(month<10) {
-                        month='0'+month
-                    }
-
-                    var day = year + month + date;
-
-                    var firebaseConfig = {
-                        apiKey: "AIzaSyB72klvRp9TjHhczFMAMM8FGOhaTLhKHFc",
-                        authDomain: "train-5772b.firebaseapp.com",
-                        databaseURL: "https://train-5772b.firebaseio.com",
-                        projectId: "train-5772b",
-                        storageBucket: "train-5772b.appspot.com",
-                        messagingSenderId: "874170495915",
-                        appId: "1:874170495915:web:92c0dbec429da4161658ee",
-                        measurementId: "G-0T8VVPG5BV"
-                    };
-                    // Initialize Firebase
-                    firebase.initializeApp(firebaseConfig);
-
-
-
-                    var database = firebase.database();
-
-                    function updateUserData(userId) {
-
-                        var new_data = {
-                            squat : count,
-                        };
-
-                        var dbTestRef = database.ref('hca/' + userId ).push().key;
-
-                        var updates = {};
-                        updates['/hca/' + userId] = new_data;
-                        firebase.database().ref().update(updates);
-                    }
-
 
 
                 </script>
@@ -193,7 +185,7 @@
             </td>
             <td>
                 <!--                    <div class="col-lg-3 stats">-->
-                <h5 style="color:white;">Squat Count</h5>
+                <h5 style="color:white;">Count</h5>
                 <i class="fa fa-check" aria-hidden="true" style="color:white;"></i>
                 <div id='counter' style="color:white;">0</div>
 <br>

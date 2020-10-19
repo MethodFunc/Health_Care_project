@@ -70,3 +70,5 @@ node_modules/
 .idea
 firebase/.idea
 health_care_express/.idea
+
+firebase/functions/serviceAccountKey.json
