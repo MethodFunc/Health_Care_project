@@ -1,6 +1,7 @@
 <main role="main" class="inner cover">
     <h1>DashBoard</h1>
     <div class="container"> <canvas id="myChart"></canvas> </div>
+    <a id="date_ids"></a>
 
 <!--    <svg width="960" height="500"></svg>-->
     <script>
@@ -34,105 +35,98 @@
         firebase.analytics();
 
         const db = firebase.firestore();
-        const dbref = db.collection('hca').doc(today);
-        //
-        // var labels = new Array();
-        // var datas = new Array();
+        const dbref = db.collection('hca');
 
-        // let getDoc = dbref.get()
-        //     .then(snapshot => {
-        //         snapshot.forEach(doc => {
-        //             console.log(doc.id, '=>', doc.data(), '=>', doc.data());
-        //         });
-        //     })
-        //     .catch(err => {
-        //         console.log('Error getting documents', err);
-        //     });
-        console.log(dbref.id)
+
         dbref.get().then(function(querySnapshot){
+            var last_data = new Array();
+            var date_id = new Array();
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
+                console.log("doc data =>", doc.data());
+                console.log("last_data =>", last_data)
+                console.log(doc.id);
+                date_id.push(doc.id);
+                last_data.push(doc.data());
+            });
+            var labels = new Array();
+            var datas = new Array();
+            var last_value = last_data.length;
+            // console.log(last_value);
+            for(var key in last_data[last_value-1])
+                {
+                    // console.log("key =>", key);
+                    // console.log("Values =>", last_data[last_value-1][key]);
+                    labels.push(key);
+                    datas.push(last_data[last_value-1][key]);
+                }
+            var doc_id = document.getElementById('date_ids');
+            doc_id = date_id[last_value-1];
+            console.log(doc_id);
 
-                console.log(doc.data());
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: doc_id,
+                        data: datas,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.3)',
+                            'rgba(54, 162, 235, 0.3)',
+                            'rgba(255, 206, 86, 0.3)',
+                            'rgba(75, 192, 192, 0.3)',
+                            'rgba(153, 102, 255, 0.3)',
+                            'rgba(255, 159, 64, 0.3)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        // borderWidth: 1,
+
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes:[{
+                            display: true,
+                            ticks:{
+                                fontColor: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            gridLines: {
+                                color:'rgba(255, 255, 255, 0.5)'
+
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                min:0,
+                                stepSize:2,
+                                fontColor: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            gridLines:{
+                                color:'rgba(255, 255, 255, 0.5)'
+                            }
+                        }]
+                    },
+                    legend:{
+                        labels: {
+                            fontColor : 'white'
+                        }
+                    }
+                }
             });
         });
 
-        // var alldata = dbref.get().then(snapshot => {
-        //     snapshot.forEach(doc => {
-        //         console.log(doc.id, '=>', doc.data());
-        //     });
-        // })
-        //     .catch(err => {
-        //         console.log('Error getting documents', err);
-        //     });
 
-        // dbref.on('child_added', function(data) {
-        //     labels.push(data.key);
-        //     datas.push(data.val());
-        //
-        //     var ctx = document.getElementById('myChart').getContext('2d');
-        //     var chart = new Chart(ctx, {
-        //         type: 'bar',
-        //         data: {
-        //             labels: labels,
-        //             datasets: [{
-        //                 label: '# of Count',
-        //                 data: datas,
-        //                 backgroundColor: [
-        //                     'rgba(255, 99, 132, 0.3)',
-        //                     'rgba(54, 162, 235, 0.3)',
-        //                     'rgba(255, 206, 86, 0.3)',
-        //                     'rgba(75, 192, 192, 0.3)',
-        //                     'rgba(153, 102, 255, 0.3)',
-        //                     'rgba(255, 159, 64, 0.3)'
-        //                 ],
-        //                 borderColor: [
-        //                     'rgba(255,99,132,1)',
-        //                     'rgba(54, 162, 235, 1)',
-        //                     'rgba(255, 206, 86, 1)',
-        //                     'rgba(75, 192, 192, 1)',
-        //                     'rgba(153, 102, 255, 1)',
-        //                     'rgba(255, 159, 64, 1)'
-        //                 ],
-        //                 // borderWidth: 1,
-        //
-        //             }]
-        //         },
-        //         options: {
-        //             scales: {
-        //                 xAxes:[{
-        //                     display: true,
-        //                     ticks:{
-        //                         fontColor: 'rgba(255, 255, 255, 0.8)'
-        //                     },
-        //                     gridLines: {
-        //                         color:'rgba(255, 255, 255, 0.5)'
-        //
-        //                     }
-        //                 }],
-        //                 yAxes: [{
-        //                     display: true,
-        //                     ticks: {
-        //                         beginAtZero: true,
-        //                         min:0,
-        //                         stepSize:2,
-        //                         fontColor: 'rgba(255, 255, 255, 0.8)'
-        //                     },
-        //                     gridLines:{
-        //                         color:'rgba(255, 255, 255, 0.5)'
-        //                     }
-        //                 }]
-        //             },
-        //             legend:{
-        //                 labels: {
-        //                     fontColor : 'white'
-        //                 }
-        //             }
-        //         }
-        //     });
-
-        // });
 
     </script>
 </main>

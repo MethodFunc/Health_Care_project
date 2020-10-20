@@ -57,13 +57,7 @@ app.use(function(err, req, res, next) {
 //
 // let test = db.collection('hca').doc(today);
 //
-// let setFirst = test.set({
-//       sqaut : 0,
-//       shoulderP : 0,
-//       lunge : 0,
-//       legraise: 0
-// })
-
+//
 
 const api1 = functions.https.onRequest(app)
 
