@@ -1,7 +1,9 @@
 <main role="main" class="inner cover">
     <h1>DashBoard</h1>
-    <div class="container"> <canvas id="myChart"></canvas> </div>
-    <a id="date_ids"></a>
+    <div class="container"> <canvas id="myChart"></canvas>
+    </div>
+    <p style="color:white" id="date_ids"> adsf </p>
+
 
 <!--    <svg width="960" height="500"></svg>-->
     <script>
@@ -43,24 +45,38 @@
             var date_id = new Array();
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
-                console.log("doc data =>", doc.data());
-                console.log("last_data =>", last_data)
-                console.log(doc.id);
+                // console.log("doc data =>", doc.data());
+                // console.log("last_data =>", last_data)
+                // console.log(doc.id);
                 date_id.push(doc.id);
                 last_data.push(doc.data());
             });
+
+
             var labels = new Array();
             var datas = new Array();
             var last_value = last_data.length;
+            last_data.sort();
             // console.log(last_value);
-            for(var key in last_data[last_value-1])
+            console.log(JSON.stringify(last_data[last_value-1]));
+            const order_last_data = {};
+            Object.keys(last_data[last_value-1]).sort().forEach(function (key) {
+                order_last_data[key] = last_data[last_value-1][key];
+            })
+
+            console.log(order_last_data);
+
+            for(var key in order_last_data)
                 {
                     // console.log("key =>", key);
                     // console.log("Values =>", last_data[last_value-1][key]);
                     labels.push(key);
-                    datas.push(last_data[last_value-1][key]);
+                    datas.push(order_last_data[key]);
                 }
+
             var doc_id = date_id[last_value-1];
+            var date_ids = document.getElementById('date_ids').innerHTML = doc_id;
+
 
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
@@ -122,6 +138,10 @@
                     }
                 }
             });
+
+            console.log(last_data);
+
+
         });
 
 
