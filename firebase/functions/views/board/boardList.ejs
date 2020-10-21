@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <%- include("../part/header")%>
+
+
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">Health Care</h3>
+    </header>
+
+<main role="main" class="inner cover">
+    <a href="boardForm" style="margin-left: 56%">New</a>
+
+    <table border="1" style="width:600px; margin:auto">
+        <colgroup>
+            <col width='8%' />
+            <col width='*%' />
+            <col width='15%' />
+            <col width='15%' />
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Writer</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+        for(var i=0; i<rows.length; i++) {
+        %>
+        <tr>
+            <td><%=rows.length-i%></td>
+            <td><a href='boardRead?brdno=<%=rows[i].brdno%>'><%=rows[i].brdtitle%></a></td>
+            <td><%=rows[i].brdwriter%></td>
+            <td><%=rows[i].brddate%></td>
+        </tr>
+        <%
+        }
+        %>
+        </tbody>
+    </table>
+
+
+</main>
+
+</div>
+</body>
+<%- include("../part/footer")%>
+
