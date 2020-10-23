@@ -48,6 +48,63 @@
     </div>
 
 </main>
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    }
+    if(mm<10) {
+        mm='0'+mm
+    }
+
+    today = String(yyyy)+ String(mm)+ String(dd);
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyB72klvRp9TjHhczFMAMM8FGOhaTLhKHFc",
+        authDomain: "train-5772b.firebaseapp.com",
+        databaseURL: "https://train-5772b.firebaseio.com",
+        projectId: "train-5772b",
+        storageBucket: "train-5772b.appspot.com",
+        messagingSenderId: "874170495915",
+        appId: "1:874170495915:web:92c0dbec429da4161658ee",
+        measurementId: "G-0T8VVPG5BV"
+    };
+    // // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    const db = firebase.firestore();
+    const dbref = db.collection('hca');
+
+    // 오늘 날짜 데이터베이스가 없으면 새로 생성한다.
+    dbref.get().then(function(querySnapshot) {
+        var doc_id = [];
+        var last_count = null;
+        querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log("doc data =>", doc.data());
+            // console.log("last_data =>", last_data)
+            doc_id.push(doc.id);
+        });
+        last_count = doc_id.length;
+        console.log(doc_id[last_count-1]);
+
+        if(doc_id[last_count-1] != today){
+            dbref.doc(today).set({
+                squat: 0,
+                shoulderP: 0,
+                lunge: 0,
+                legraise: 0
+            });
+        };
+
+    });
+
+
+</script>
 
 
 <%- include("../part/footer")%>

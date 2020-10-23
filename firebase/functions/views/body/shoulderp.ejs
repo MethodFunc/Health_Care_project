@@ -142,7 +142,7 @@
                         }
 
                         dbref.update({
-                            shoulderP: count
+                            shoulderP: firebase.firestore.FieldValue.increment(count)
                         });
 
                         // if(count == 10){

@@ -2,10 +2,25 @@
     <h1>DashBoard</h1>
     <div class="container"> <canvas id="myChart"></canvas>
     </div>
-    <p style="color:white" id="date_ids"> adsf </p>
+    <br>
+    <br>
+    <table class="table table-borderless">
+        <tr>
+            <td colspan="2"><p class="caption" style="color:white" id="date_ids"> </p></td>
+        </tr>
+        <tr>
+            <td style="color:white">부족한 운동</td>
+            <td><p style="color:white" id="part_message"></p></td>
+        </tr>
+    </table>
 
 
-<!--    <svg width="960" height="500"></svg>-->
+<!--    <p style="color:white"> toDo: 추천시스템 틀 만들기 </p>-->
+
+
+
+
+    <!--    <svg width="960" height="500"></svg>-->
     <script>
         // https://console.firebase.google.com/project/[your_project_name]/settings/general
         var today = new Date();
@@ -73,9 +88,45 @@
                     labels.push(key);
                     datas.push(order_last_data[key]);
                 }
+            var result = null;
+            var part = [];
+            if(datas[0] == 0 && datas[1] == 0 && datas[2] == 0 && datas[3] == 0 )
+            {
+                result = "운동을 시작해주세요"
+            }
+            else if(datas[0] >= 10 && datas[1] >= 10 && datas[2] >= 10 && datas[3] >= 10){
+                result = "운동을 충분히 하셨습니다. 휴식해주세요"
+            }
+
+            else if(datas[0] < 10 || datas[1] < 10 || datas[2] < 10 || datas[3] < 10)
+            {
+                result = "운동량이 부족합니다."
+
+                if(datas[0] < 10)
+                {
+                    part.push('Leg Raise')
+                }
+
+                if(datas[1] < 10)
+                {
+                    part.push('Lunge')
+                }
+
+                if(datas[2] < 10){
+                    part.push("Shoulder Press")
+                }
+
+                if(datas[3] < 10){
+                    part.push("Squat")
+                }
+
+            }
 
             var doc_id = date_id[last_value-1];
-            var date_ids = document.getElementById('date_ids').innerHTML = doc_id;
+            var date_ids = document.getElementById('date_ids').innerHTML = result;
+            var part_message = document.getElementById("part_message").innerHTML = part;
+
+            // part.forEach(el => console.log(el, ));
 
 
             var ctx = document.getElementById('myChart').getContext('2d');
